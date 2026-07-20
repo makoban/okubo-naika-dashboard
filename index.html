@@ -13,13 +13,12 @@
         <img src="./assets/original-logo.png" alt="おおくぼ内科クリニック" />
         <div><h1>サイト更新</h1><p>編集できる場所を2ヶ所に限定</p></div>
       </div>
-      <a class="cms-site-link" href="./preview/index.html">サイト確認版を開く</a>
     </header>
 
     <main class="cms-shell">
       <section class="cms-note" aria-label="保存について">
-        <strong>この無料確認版では、変更内容をこのブラウザ内に保存します。</strong>
-        <p>管理画面の操作と表示反映を確認できます。本番で複数端末から共有・更新する機能は、移行先サーバー確定後に接続します。</p>
+        <strong>変更内容を別画面で確認してから、本番サイトへ反映できます。</strong>
+        <p>本番変更ではGitHubの確認画面が開きます。所有者アカウントで内容を送信すると公開処理が始まります。</p>
       </section>
 
       <div class="cms-tabs" role="tablist" aria-label="編集する場所">
@@ -35,9 +34,9 @@
           </header>
           <div class="cms-items" data-items="topics"></div>
           <div class="cms-actions">
-            <button class="cms-action-button reset" type="button" data-reset>初期状態に戻す</button>
-            <button class="cms-action-button secondary" type="button" data-refresh-preview>プレビュー更新</button>
-            <button class="cms-action-button" type="button" data-save>保存してプレビュー</button>
+            <button class="cms-action-button reset" type="button" data-discard>すべての変更を取り消す</button>
+            <button class="cms-action-button secondary" type="button" data-preview-new>変更でプレビューを見る</button>
+            <button class="cms-action-button publish" type="button" data-publish>変更を保存して本番変更</button>
           </div>
           <p class="cms-message" aria-live="polite" data-message></p>
         </section>
@@ -49,21 +48,22 @@
           </header>
           <div class="cms-items" data-items="fees"></div>
           <div class="cms-actions">
-            <button class="cms-action-button reset" type="button" data-reset>初期状態に戻す</button>
-            <button class="cms-action-button secondary" type="button" data-refresh-preview>プレビュー更新</button>
-            <button class="cms-action-button" type="button" data-save>保存してプレビュー</button>
+            <button class="cms-action-button reset" type="button" data-discard>すべての変更を取り消す</button>
+            <button class="cms-action-button secondary" type="button" data-preview-new>変更でプレビューを見る</button>
+            <button class="cms-action-button publish" type="button" data-publish>変更を保存して本番変更</button>
           </div>
           <p class="cms-message" aria-live="polite" data-message></p>
         </section>
 
         <aside class="cms-preview" aria-label="サイトプレビュー">
-          <div class="cms-preview-header"><strong data-preview-title>TOPの表示</strong><button type="button" data-open-preview>別画面で開く</button></div>
+          <div class="cms-preview-header"><strong data-preview-title>TOPの表示</strong></div>
           <iframe title="サイトの表示確認" src="./preview/index.html#topics-title" data-preview-frame></iframe>
         </aside>
       </div>
     </main>
 
     <script src="./preview/review-data.js"></script>
+    <script src="https://makoban.github.io/okubo-naika-renewal/review-data.js"></script>
     <script src="./preview/review-store.js"></script>
     <script src="./admin-preview.js"></script>
   </body>

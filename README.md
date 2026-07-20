@@ -8,6 +8,6 @@
 - 医院案内ページ下部の診療報酬のお知らせ
 
 変更内容はブラウザの `localStorage` に保存され、同じブラウザ内の確認プレビューへ反映されます。
-GitHub Pagesは静的ホスティングのため、この確認版だけでは公開サイトのファイル更新や複数端末での内容共有は行いません。
+本番変更は `makoban` のGitHubログイン確認を経由し、サイト側のGitHub Actionsが内容を検証して公開データを更新します。
 
 公開サイト案: <https://makoban.github.io/okubo-naika-renewal/>

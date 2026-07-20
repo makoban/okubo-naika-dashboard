@@ -9,6 +9,7 @@
     topics: "./preview/index.html#topics-title",
     fees: "./preview/guide.html#fees",
   };
+  const publishIssueUrl = "https://github.com/makoban/okubo-naika-renewal/issues/new";
   const topicLinkChoices = [
     ["", "リンクなし"],
     ["./index.html", "トップページ"],
@@ -201,18 +202,57 @@
     });
   }
 
-  function save() {
+  function saveDraft() {
     store.save(state);
-    showMessage("保存しました。右側のプレビューへ反映しました。");
+  }
+
+  function discardChanges() {
+    if (!window.confirm("保存していない編集内容を取り消して、直前の保存状態に戻しますか？")) return;
+    state = store.get();
+    renderAll();
+    showMessage("編集内容を取り消し、直前の保存状態に戻しました。");
     refreshPreview();
   }
 
-  function reset() {
-    if (!window.confirm("TOPのトピックスと診療報酬を初期状態に戻しますか？")) return;
-    state = store.reset();
-    renderAll();
-    showMessage("初期状態に戻しました。");
-    refreshPreview();
+  function previewChanges() {
+    saveDraft();
+    showMessage("変更内容をブラウザ内に保存し、別画面でプレビューを開きました。");
+    window.open(cacheBustedUrl(previewUrls[activeSection]), "_blank", "noopener");
+  }
+
+  function encodePublishData(value) {
+    const bytes = new TextEncoder().encode(JSON.stringify(value));
+    let binary = "";
+    bytes.forEach((byte) => {
+      binary += String.fromCharCode(byte);
+    });
+    return window.btoa(binary);
+  }
+
+  function publishChanges() {
+    const confirmed = window.confirm(
+      "変更内容を保存し、GitHubの本番反映確認画面を開きます。\nGitHubで内容を送信すると公開処理が始まります。"
+    );
+    if (!confirmed) return;
+
+    saveDraft();
+    const payload = encodePublishData({ version: 1, topics: state.topics, fees: state.fees });
+    const issueBody = [
+      "おおくぼ内科クリニックの本番反映用データです。下記のデータは編集しないでください。",
+      "",
+      "<!-- OKUBO_CMS_DATA_BEGIN -->",
+      payload,
+      "<!-- OKUBO_CMS_DATA_END -->",
+      "",
+      "ダッシュボードから送信されました。",
+    ].join("\n");
+    const params = new URLSearchParams({
+      title: `[CMS Publish] おおくぼ内科クリニック ${new Date().toLocaleString("ja-JP")}`,
+      body: issueBody,
+    });
+
+    showMessage("GitHubの確認画面を開きました。内容を送信すると本番反映が始まります。");
+    window.open(`${publishIssueUrl}?${params.toString()}`, "_blank", "noopener");
   }
 
   function switchSection(type) {
@@ -233,12 +273,9 @@
   document.querySelectorAll("[data-add-item]").forEach((button) => {
     button.addEventListener("click", () => addItem(button.dataset.addItem));
   });
-  document.querySelectorAll("[data-save]").forEach((button) => button.addEventListener("click", save));
-  document.querySelectorAll("[data-reset]").forEach((button) => button.addEventListener("click", reset));
-  document.querySelectorAll("[data-refresh-preview]").forEach((button) => button.addEventListener("click", refreshPreview));
-  document.querySelector("[data-open-preview]").addEventListener("click", () => {
-    window.open(previewUrls[activeSection], "_blank", "noopener");
-  });
+  document.querySelectorAll("[data-discard]").forEach((button) => button.addEventListener("click", discardChanges));
+  document.querySelectorAll("[data-preview-new]").forEach((button) => button.addEventListener("click", previewChanges));
+  document.querySelectorAll("[data-publish]").forEach((button) => button.addEventListener("click", publishChanges));
 
   renderAll();
 })();

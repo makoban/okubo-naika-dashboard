@@ -463,6 +463,10 @@ body.review-admin {
   background: #e9efec;
 }
 
+.cms-action-button.publish {
+  background: #c86f61;
+}
+
 .cms-action-button.reset {
   margin-right: auto;
   color: #8b423a;
@@ -637,6 +641,17 @@ body.review-admin {
 
   .cms-fields {
     grid-template-columns: 1fr;
+  }
+
+  .cms-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .cms-action-button,
+  .cms-action-button.reset {
+    width: 100%;
+    margin-right: 0;
   }
 
   .cms-field.wide {
