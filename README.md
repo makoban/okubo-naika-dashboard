@@ -11,3 +11,5 @@
 本番変更は `makoban` のGitHubログイン確認を経由し、サイト側のGitHub Actionsが内容を検証して公開データを更新します。
 
 公開サイト案: <https://makoban.github.io/okubo-naika-renewal/>
+
+操作説明書: <https://makoban.github.io/okubo-naika-dashboard/manual.html>

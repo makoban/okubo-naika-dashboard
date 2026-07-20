@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>サイト更新 操作説明書 | おおくぼ内科クリニック</title>
+    <meta name="description" content="おおくぼ内科クリニックのサイト更新ダッシュボード操作説明書です。" />
+    <link rel="stylesheet" href="./manual.css" />
+  </head>
+  <body>
+    <header class="manual-header">
+      <div class="manual-header-inner">
+        <img src="./assets/original-logo.png" alt="おおくぼ内科クリニック" />
+        <div>
+          <p>管理者向け</p>
+          <h1>サイト更新 操作説明書</h1>
+        </div>
+      </div>
+    </header>
+
+    <main class="manual-main">
+      <section class="manual-intro" aria-labelledby="intro-title">
+        <p class="manual-kicker">はじめに</p>
+        <h2 id="intro-title">変更内容を確認してから、本番サイトへ反映します。</h2>
+        <p>編集できる場所は「TOPのトピックス」と「診療報酬のお知らせ」の2ヶ所です。</p>
+        <a class="manual-primary-link" href="./index.html">編集ダッシュボードを開く</a>
+      </section>
+
+      <section class="manual-section" aria-labelledby="editable-title">
+        <div class="manual-heading">
+          <span>01</span>
+          <div>
+            <p>編集できる場所</p>
+            <h2 id="editable-title">2つのタブから選びます。</h2>
+          </div>
+        </div>
+        <div class="manual-grid">
+          <article class="manual-card">
+            <h3>TOPのトピックス</h3>
+            <ul>
+              <li>表示・非表示</li>
+              <li>日付・分類・見出し・本文</li>
+              <li>リンク先・リンク文字</li>
+              <li>表示色・見出し書体</li>
+              <li>追加・削除・並び替え</li>
+            </ul>
+          </article>
+          <article class="manual-card">
+            <h3>診療報酬のお知らせ</h3>
+            <ul>
+              <li>表示・非表示</li>
+              <li>項目名・本文</li>
+              <li>追加・削除・並び替え</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="manual-section" aria-labelledby="edit-title">
+        <div class="manual-heading">
+          <span>02</span>
+          <div>
+            <p>編集方法</p>
+            <h2 id="edit-title">入力欄を変更します。</h2>
+          </div>
+        </div>
+        <ol class="manual-steps">
+          <li><strong>編集するタブを選択</strong><span>TOPのトピックス、または診療報酬のお知らせを選びます。</span></li>
+          <li><strong>文章や表示設定を変更</strong><span>リンク先はサイト内のページから選択できます。</span></li>
+          <li><strong>必要に応じて並び替え</strong><span>「↑」「↓」で順番を変更し、不要な項目は削除できます。</span></li>
+        </ol>
+      </section>
+
+      <section class="manual-section" aria-labelledby="buttons-title">
+        <div class="manual-heading">
+          <span>03</span>
+          <div>
+            <p>画面下部の操作</p>
+            <h2 id="buttons-title">3つのボタンを使い分けます。</h2>
+          </div>
+        </div>
+        <div class="manual-actions-list">
+          <article class="manual-action cancel">
+            <h3>すべての変更を取り消す</h3>
+            <p>保存していない編集を破棄して、直前の保存状態へ戻します。本番サイトは変更されません。</p>
+          </article>
+          <article class="manual-action preview">
+            <h3>変更でプレビューを見る</h3>
+            <p>現在の変更内容をブラウザ内へ一時保存し、別ウインドウで確認します。本番サイトはまだ変更されません。</p>
+          </article>
+          <article class="manual-action publish">
+            <h3>変更を保存して本番変更</h3>
+            <p>GitHubの確認画面を開きます。内容を送信すると、本番サイトの更新処理が始まります。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="manual-section" aria-labelledby="publish-title">
+        <div class="manual-heading">
+          <span>04</span>
+          <div>
+            <p>本番反映</p>
+            <h2 id="publish-title">GitHubで送信を確定します。</h2>
+          </div>
+        </div>
+        <ol class="manual-steps">
+          <li><strong>本番変更ボタンを押す</strong><span>確認メッセージの内容を確認して進みます。</span></li>
+          <li><strong>GitHubへログイン</strong><span>所有者アカウント「makoban」でログインします。</span></li>
+          <li><strong>「Submit new issue」を押す</strong><span>自動入力されたデータは編集せず、そのまま送信します。</span></li>
+          <li><strong>公開完了を待つ</strong><span>通常は1〜2分程度で本番サイトへ反映されます。</span></li>
+          <li><strong>本番サイトを再読み込み</strong><span>変更内容が表示されていることを確認します。</span></li>
+        </ol>
+        <aside class="manual-warning">
+          <strong>本番変更できるのは所有者アカウントだけです。</strong>
+          <p>GitHub確認画面に表示される本番反映用データは、削除・追記・書き換えをしないでください。</p>
+        </aside>
+      </section>
+
+      <section class="manual-links" aria-label="関連ページ">
+        <a class="manual-primary-link" href="./index.html">編集ダッシュボード</a>
+        <a class="manual-secondary-link" href="https://makoban.github.io/okubo-naika-renewal/">本番サイトを確認</a>
+      </section>
+    </main>
+
+    <footer class="manual-footer">
+      <p>おおくぼ内科クリニック サイト更新 操作説明書</p>
+    </footer>
+  </body>
+</html>
