@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>サイト更新 | おおくぼ内科クリニック</title>
+    <link rel="stylesheet" href="./preview/review.css" />
+  </head>
+  <body class="review-admin">
+    <header class="cms-header">
+      <div class="cms-brand">
+        <img src="./assets/original-logo.png" alt="おおくぼ内科クリニック" />
+        <div><h1>サイト更新</h1><p>編集できる場所を2ヶ所に限定</p></div>
+      </div>
+      <a class="cms-site-link" href="./preview/index.html">サイト確認版を開く</a>
+    </header>
+
+    <main class="cms-shell">
+      <section class="cms-note" aria-label="保存について">
+        <strong>この無料確認版では、変更内容をこのブラウザ内に保存します。</strong>
+        <p>管理画面の操作と表示反映を確認できます。本番で複数端末から共有・更新する機能は、移行先サーバー確定後に接続します。</p>
+      </section>
+
+      <div class="cms-tabs" role="tablist" aria-label="編集する場所">
+        <button class="cms-tab" type="button" role="tab" aria-selected="true" aria-controls="topics-editor" data-cms-tab="topics">TOPのトピックス</button>
+        <button class="cms-tab" type="button" role="tab" aria-selected="false" aria-controls="fees-editor" data-cms-tab="fees">診療報酬のお知らせ</button>
+      </div>
+
+      <div class="cms-workspace">
+        <section id="topics-editor" class="cms-editor" role="tabpanel" data-editor-panel="topics">
+          <header class="cms-editor-heading">
+            <div><h2>TOPのトピックス</h2><p>日付・分類・見出し・本文・リンク・表示状態を変更できます。</p></div>
+            <button class="cms-add-button" type="button" data-add-item="topics">＋ お知らせを追加</button>
+          </header>
+          <div class="cms-items" data-items="topics"></div>
+          <div class="cms-actions">
+            <button class="cms-action-button reset" type="button" data-reset>初期状態に戻す</button>
+            <button class="cms-action-button secondary" type="button" data-refresh-preview>プレビュー更新</button>
+            <button class="cms-action-button" type="button" data-save>保存してプレビュー</button>
+          </div>
+          <p class="cms-message" aria-live="polite" data-message></p>
+        </section>
+
+        <section id="fees-editor" class="cms-editor" role="tabpanel" data-editor-panel="fees" hidden>
+          <header class="cms-editor-heading">
+            <div><h2>診療報酬のお知らせ</h2><p>ページ下部の折りたたみ項目だけを変更できます。</p></div>
+            <button class="cms-add-button" type="button" data-add-item="fees">＋ 項目を追加</button>
+          </header>
+          <div class="cms-items" data-items="fees"></div>
+          <div class="cms-actions">
+            <button class="cms-action-button reset" type="button" data-reset>初期状態に戻す</button>
+            <button class="cms-action-button secondary" type="button" data-refresh-preview>プレビュー更新</button>
+            <button class="cms-action-button" type="button" data-save>保存してプレビュー</button>
+          </div>
+          <p class="cms-message" aria-live="polite" data-message></p>
+        </section>
+
+        <aside class="cms-preview" aria-label="サイトプレビュー">
+          <div class="cms-preview-header"><strong data-preview-title>TOPの表示</strong><button type="button" data-open-preview>別画面で開く</button></div>
+          <iframe title="サイトの表示確認" src="./preview/index.html#topics-title" data-preview-frame></iframe>
+        </aside>
+      </div>
+    </main>
+
+    <script src="./preview/review-data.js"></script>
+    <script src="./preview/review-store.js"></script>
+    <script src="./admin-preview.js"></script>
+  </body>
+</html>

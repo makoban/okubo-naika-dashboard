@@ -1,0 +1,665 @@
+/* 通常版の見た目を維持し、確認版に必要な箇所だけを追加する。 */
+.review-admin-fab {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: #243238;
+  box-shadow: 0 8px 24px rgba(36, 50, 56, 0.22);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.review-admin-fab:hover {
+  background: #24776f;
+}
+
+.topic-card.topic-tone-important {
+  border-color: rgba(200, 111, 97, 0.5);
+  background: #fff8f4;
+}
+
+.topic-card.topic-tone-soft {
+  border-color: rgba(100, 112, 120, 0.2);
+  background: #f7f8f6;
+}
+
+.topic-card.topic-font-mincho h3 {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+}
+
+.client-doctor-photo {
+  object-position: center 26%;
+}
+
+.client-character-panel > img {
+  width: min(280px, 100%);
+  margin: 0 auto 18px;
+  border: 1px solid rgba(36, 50, 56, 0.08);
+  border-radius: 12px;
+}
+
+.review-gallery-thumb {
+  width: 100%;
+  padding: 0;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.review-gallery-thumb:focus-visible {
+  outline: 3px solid rgba(36, 119, 111, 0.5);
+  outline-offset: 3px;
+}
+
+.review-gallery-caption {
+  display: block;
+  padding: 9px 13px 12px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.review-gallery-dialog {
+  width: min(920px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.review-gallery-dialog::backdrop {
+  background: rgba(22, 32, 35, 0.84);
+}
+
+.review-gallery-dialog figure {
+  margin: 0;
+  padding: 14px;
+  border-radius: 18px 8px 18px 8px;
+  background: #fff;
+}
+
+.review-gallery-dialog figure img {
+  width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+}
+
+.review-gallery-dialog figcaption {
+  padding: 10px 4px 2px;
+  color: var(--ink);
+  font-weight: 900;
+  text-align: center;
+}
+
+.review-gallery-close {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  color: #fff;
+  background: #243238;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.fee-section-quiet {
+  margin-top: 92px;
+  padding-top: 28px;
+  padding-bottom: 84px;
+  border-top: 1px solid rgba(36, 50, 56, 0.16);
+  color: #667078;
+}
+
+.fee-heading-quiet {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.fee-heading-quiet h2 {
+  margin: 0;
+  color: #536066;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.fee-heading-quiet p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fee-item-quiet {
+  border-bottom: 1px solid rgba(36, 50, 56, 0.13);
+}
+
+.fee-item-quiet summary {
+  padding: 14px 2px;
+  color: #58666c;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.fee-item-content {
+  padding: 0 2px 18px;
+  font-size: 13px;
+}
+
+.fee-item-content p {
+  margin: 8px 0 0;
+}
+
+/* 確認用ダッシュボード */
+body.review-admin {
+  margin: 0;
+  color: #243238;
+  background: #f2f4f1;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  line-height: 1.65;
+}
+
+.review-admin *,
+.review-admin *::before,
+.review-admin *::after {
+  box-sizing: border-box;
+}
+
+.review-admin a {
+  color: inherit;
+}
+
+.cms-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 12px clamp(16px, 4vw, 52px);
+  color: #fff;
+  background: #243238;
+}
+
+.cms-brand {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cms-brand img {
+  width: 230px;
+  max-width: 46vw;
+  border-radius: 5px;
+}
+
+.cms-brand h1,
+.cms-brand p {
+  margin: 0;
+}
+
+.cms-brand h1 {
+  font-size: 18px;
+}
+
+.cms-brand p {
+  color: #cbd7d4;
+  font-size: 11px;
+}
+
+.cms-site-link {
+  flex: 0 0 auto;
+  padding: 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.cms-shell {
+  width: min(1380px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 26px 0 70px;
+}
+
+.cms-note {
+  margin-bottom: 20px;
+  padding: 16px 18px;
+  border-left: 5px solid #c86f61;
+  background: #fff8f3;
+}
+
+.cms-note strong,
+.cms-note p {
+  margin: 0;
+}
+
+.cms-note p {
+  margin-top: 3px;
+  color: #6d625d;
+  font-size: 12px;
+}
+
+.cms-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.cms-tab {
+  min-height: 42px;
+  padding: 9px 18px;
+  border: 1px solid #cfd9d5;
+  color: #43514f;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cms-tab[aria-selected="true"] {
+  color: #fff;
+  border-color: #24776f;
+  background: #24776f;
+}
+
+.cms-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.cms-editor,
+.cms-preview {
+  min-width: 0;
+  border: 1px solid #d7dfdb;
+  background: #fff;
+}
+
+.cms-editor {
+  padding: 22px;
+}
+
+.cms-editor[hidden] {
+  display: none;
+}
+
+.cms-editor-heading {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cms-editor-heading h2,
+.cms-editor-heading p {
+  margin: 0;
+}
+
+.cms-editor-heading h2 {
+  font-size: 22px;
+}
+
+.cms-editor-heading p {
+  color: #697673;
+  font-size: 12px;
+}
+
+.cms-add-button,
+.cms-action-button,
+.cms-small-button {
+  border: 0;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cms-add-button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 8px 14px;
+  color: #24776f;
+  border: 1px solid rgba(36, 119, 111, 0.38);
+  background: #edf6f3;
+  font-size: 12px;
+}
+
+.cms-items {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+}
+
+.cms-item {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #dce4e0;
+  border-left: 4px solid #24776f;
+  background: #fff;
+}
+
+.cms-item-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cms-item-header strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cms-item-controls {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 5px;
+}
+
+.cms-small-button {
+  min-width: 32px;
+  min-height: 30px;
+  padding: 5px 8px;
+  color: #4f5f5c;
+  background: #edf1ef;
+  font-size: 11px;
+}
+
+.cms-small-button.danger {
+  color: #8b423a;
+  background: #fff0ec;
+}
+
+.cms-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cms-field {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.cms-field.wide {
+  grid-column: 1 / -1;
+}
+
+.cms-field label {
+  color: #43514f;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.cms-field input,
+.cms-field select,
+.cms-field textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid #ccd7d2;
+  border-radius: 3px;
+  color: #243238;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+}
+
+.cms-field textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+.cms-help {
+  color: #7a8784;
+  font-size: 10px;
+}
+
+.cms-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #e1e7e4;
+}
+
+.cms-action-button {
+  min-height: 40px;
+  padding: 8px 16px;
+  color: #fff;
+  background: #24776f;
+  font-size: 12px;
+}
+
+.cms-action-button.secondary {
+  color: #475653;
+  background: #e9efec;
+}
+
+.cms-action-button.reset {
+  margin-right: auto;
+  color: #8b423a;
+  background: #fff0ec;
+}
+
+.cms-message {
+  min-height: 1.5em;
+  margin: 10px 0 0;
+  color: #24776f;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.cms-preview {
+  position: sticky;
+  top: 14px;
+  overflow: hidden;
+}
+
+.cms-preview-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  color: #fff;
+  background: #34454a;
+}
+
+.cms-preview-header strong {
+  font-size: 12px;
+}
+
+.cms-preview-header button {
+  padding: 5px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+  background: transparent;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cms-preview iframe {
+  display: block;
+  width: 100%;
+  height: 760px;
+  border: 0;
+  background: #fff;
+}
+
+@media (max-width: 960px) {
+  .cms-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .cms-preview {
+    position: static;
+  }
+
+  .cms-preview iframe {
+    height: 620px;
+  }
+}
+
+@media (max-width: 680px) {
+  .review-site .section.guide-board-section {
+    /* 背景画像内の白い用紙（左右約13%内側）に内容を収める。 */
+    padding-inline: max(44px, 13%);
+  }
+
+  .review-site .guide-board-section .topics-heading {
+    padding-left: 0;
+  }
+
+  .review-admin-fab {
+    right: 10px;
+    bottom: 10px;
+    min-height: 36px;
+    padding: 7px 12px;
+    font-size: 10px;
+  }
+
+  .review-gallery.equipment-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .review-gallery-caption {
+    padding: 7px 8px 9px;
+    font-size: 10px;
+  }
+
+  .fee-section-quiet {
+    margin-top: 68px;
+    padding-top: 24px;
+    padding-bottom: 62px;
+  }
+
+  .fee-heading-quiet {
+    display: block;
+  }
+
+  .fee-heading-quiet h2 {
+    font-size: 17px;
+  }
+
+  .fee-heading-quiet p {
+    margin-top: 5px;
+  }
+
+  .client-doctor-photo {
+    aspect-ratio: 4 / 3 !important;
+    object-position: center 24%;
+  }
+
+  .cms-header {
+    display: block;
+  }
+
+  .cms-brand {
+    gap: 10px;
+  }
+
+  .cms-brand img {
+    width: 180px;
+    max-width: 52vw;
+  }
+
+  .cms-brand h1 {
+    font-size: 15px;
+  }
+
+  .cms-site-link {
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  .cms-shell {
+    width: min(100% - 20px, 1380px);
+    padding-top: 16px;
+  }
+
+  .cms-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cms-tab {
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  .cms-editor {
+    padding: 14px;
+  }
+
+  .cms-editor-heading {
+    display: block;
+  }
+
+  .cms-add-button {
+    margin-top: 10px;
+  }
+
+  .cms-item {
+    padding: 14px;
+  }
+
+  .cms-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .cms-field.wide {
+    grid-column: 1;
+  }
+
+  .cms-item-header {
+    align-items: flex-start;
+  }
+
+  .cms-item-header strong {
+    padding-top: 4px;
+    font-size: 12px;
+  }
+
+  .cms-preview iframe {
+    height: 560px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-gallery-dialog,
+  .review-admin-fab {
+    scroll-behavior: auto;
+  }
+}
