@@ -1,10 +1,13 @@
 (function () {
-  const adminLink = document.createElement("a");
-  adminLink.className = "review-admin-fab";
-  adminLink.href = "https://makoban.github.io/okubo-naika-dashboard/";
-  adminLink.textContent = "編集画面";
-  adminLink.setAttribute("aria-label", "確認用の編集画面を開く");
-  document.body.append(adminLink);
+  if (window.self === window.top) {
+    const adminLink = document.createElement("a");
+    adminLink.className = "review-admin-fab";
+    adminLink.href = "https://makoban.github.io/okubo-naika-dashboard/";
+    adminLink.target = "_top";
+    adminLink.textContent = "編集画面";
+    adminLink.setAttribute("aria-label", "確認用の編集画面を開く");
+    document.body.append(adminLink);
+  }
 
   const visibleTopics = (window.OKUBO_TOPICS || []).filter((topic) => topic.status !== "hide").slice(0, 6);
   document.querySelectorAll(".topic-card").forEach((card, index) => {

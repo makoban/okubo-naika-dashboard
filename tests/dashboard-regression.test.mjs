@@ -44,6 +44,37 @@ function loadPreviewStore(initialEntries = []) {
   return { defaults, store: window.OKUBO_REVIEW_STORE, values };
 }
 
+function loadPreviewReview({ embedded }) {
+  const appended = [];
+  const document = {
+    body: {
+      append(node) {
+        appended.push(node);
+      },
+    },
+    createElement(tagName) {
+      return {
+        tagName,
+        setAttribute(name, value) {
+          this[name] = value;
+        },
+      };
+    },
+    querySelectorAll() {
+      return [];
+    },
+  };
+  const window = { OKUBO_TOPICS: [] };
+  window.self = window;
+  window.top = embedded ? {} : window;
+
+  const context = vm.createContext({ document, window });
+  const filename = path.join(repositoryRoot, "preview", "review.js");
+  vm.runInContext(fs.readFileSync(filename, "utf8"), context, { filename });
+
+  return appended;
+}
+
 test("preview store reports, saves, reads, and resets a browser draft", () => {
   const { defaults, store, values } = loadPreviewStore();
   const draft = {
@@ -71,6 +102,21 @@ test("preview store treats malformed saved data as no draft", () => {
 
   assert.equal(store.hasDraft(), false);
   assert.deepEqual(plain(store.get()), defaults);
+});
+
+test("preview edit link never nests the dashboard inside its preview frame", () => {
+  const embeddedNodes = loadPreviewReview({ embedded: true });
+  assert.equal(
+    embeddedNodes.some((node) => node.className === "review-admin-fab"),
+    false,
+    "the embedded preview must not show an edit link"
+  );
+
+  const standaloneNodes = loadPreviewReview({ embedded: false });
+  const editLink = standaloneNodes.find((node) => node.className === "review-admin-fab");
+  assert.ok(editLink, "the standalone preview should keep its edit link");
+  assert.equal(editLink.href, "https://makoban.github.io/okubo-naika-dashboard/");
+  assert.equal(editLink.target, "_top");
 });
 
 test("admin preview keeps the synchronous safe-window sequence and CMS limits", () => {
