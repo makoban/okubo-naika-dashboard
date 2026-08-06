@@ -202,6 +202,7 @@ body.review-admin {
   display: flex;
   gap: 16px;
   align-items: center;
+  min-width: 0;
 }
 
 .cms-brand img {
@@ -233,6 +234,25 @@ body.review-admin {
   text-decoration: none;
 }
 
+.cms-header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+
+.cms-site-link.is-help {
+  color: #243238;
+  border-color: #fff;
+  background: #fff;
+}
+
+.cms-site-link:hover,
+.cms-site-link:focus-visible {
+  border-color: #fff;
+  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
+}
+
 .cms-shell {
   width: min(1380px, calc(100% - 32px));
   margin: 0 auto;
@@ -240,6 +260,10 @@ body.review-admin {
 }
 
 .cms-note {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
   margin-bottom: 20px;
   padding: 16px 18px;
   border-left: 5px solid #c86f61;
@@ -255,6 +279,53 @@ body.review-admin {
   margin-top: 3px;
   color: #6d625d;
   font-size: 12px;
+}
+
+.cms-note-tools {
+  display: grid;
+  gap: 7px;
+  justify-items: end;
+}
+
+.cms-source-status {
+  color: #24776f;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.cms-source-status::before {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.cms-source-status.is-warning {
+  color: #9a4c3f;
+}
+
+.cms-source-status.is-draft {
+  color: #8a6200;
+}
+
+.cms-reload-button {
+  min-height: 36px;
+  padding: 7px 12px;
+  border: 1px solid rgba(36, 119, 111, 0.35);
+  color: #24776f;
+  background: #fff;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cms-reload-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .cms-tabs {
@@ -482,6 +553,10 @@ body.review-admin {
   text-align: right;
 }
 
+.cms-message.is-error {
+  color: #9a3f35;
+}
+
 .cms-preview {
   position: sticky;
   top: 14px;
@@ -603,9 +678,19 @@ body.review-admin {
     font-size: 15px;
   }
 
+  .cms-header-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 12px;
+  }
+
   .cms-site-link {
-    display: inline-block;
-    margin-top: 10px;
+    display: grid;
+    min-height: 42px;
+    place-items: center;
+    padding: 7px 9px;
+    font-size: 10px;
+    text-align: center;
   }
 
   .cms-shell {
@@ -616,6 +701,22 @@ body.review-admin {
   .cms-tabs {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+
+  .cms-note {
+    grid-template-columns: 1fr;
+  }
+
+  .cms-note-tools {
+    justify-items: stretch;
+  }
+
+  .cms-source-status {
+    font-size: 10px;
+  }
+
+  .cms-reload-button {
+    width: 100%;
   }
 
   .cms-tab {

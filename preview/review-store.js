@@ -14,13 +14,20 @@
     };
   }
 
-  function read() {
+  function readDraft() {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
-      return saved ? normalize(JSON.parse(saved)) : clone(defaults);
+      if (!saved) return null;
+      const parsed = JSON.parse(saved);
+      if (!parsed || !Array.isArray(parsed.topics) || !Array.isArray(parsed.fees)) return null;
+      return normalize(parsed);
     } catch (error) {
-      return clone(defaults);
+      return null;
     }
+  }
+
+  function read() {
+    return readDraft() || clone(defaults);
   }
 
   function save(value) {
@@ -70,6 +77,9 @@
     key: STORAGE_KEY,
     defaults: clone(defaults),
     get: read,
+    hasDraft() {
+      return readDraft() !== null;
+    },
     save,
     reset,
     makeId(prefix) {

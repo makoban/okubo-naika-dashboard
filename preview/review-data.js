@@ -90,3 +90,4 @@ window.OKUBO_REVIEW_DEFAULTS = {
 };
 
 window.OKUBO_TOPICS = window.OKUBO_REVIEW_DEFAULTS.topics;
+window.OKUBO_REVIEW_SOURCE = "bundled";

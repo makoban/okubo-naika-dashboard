@@ -5,11 +5,20 @@
 
   const frame = document.querySelector("[data-preview-frame]");
   const previewTitle = document.querySelector("[data-preview-title]");
+  const sourceStatus = document.querySelector("[data-source-status]");
+  const reloadPublishedButton = document.querySelector("[data-reload-published]");
+  const publishedSourceLoaded =
+    window.OKUBO_REVIEW_SOURCE === "published" || window.OKUBO_REVIEW_DEFAULTS !== window.OKUBO_BUNDLED_DEFAULTS;
   const previewUrls = {
     topics: "./preview/index.html#topics-title",
     fees: "./preview/guide.html#fees",
   };
   const publishIssueUrl = "https://github.com/makoban/okubo-naika-renewal/issues/new";
+  const itemLimits = { topics: 20, fees: 30 };
+  const fieldLimits = {
+    topics: { date: 40, label: 60, title: 160, body: 4000, linkText: 100 },
+    fees: { title: 200, body: 12000 },
+  };
   const topicLinkChoices = [
     ["", "リンクなし"],
     ["./index.html", "トップページ"],
@@ -22,12 +31,13 @@
     ["./pylori.html", "ピロリ菌"],
   ];
 
-  function createButton(label, action, className = "") {
+  function createButton(label, action, className = "", accessibleLabel = "") {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `cms-small-button ${className}`.trim();
     button.textContent = label;
     button.dataset.itemAction = action;
+    if (accessibleLabel) button.setAttribute("aria-label", accessibleLabel);
     return button;
   }
 
@@ -58,6 +68,9 @@
     }
 
     control.value = item[key] || "";
+    control.id = `cms-${String(item.id || "item").replace(/[^A-Za-z0-9_-]/g, "-")}-${key}`;
+    label.htmlFor = control.id;
+    if (options.maxLength && "maxLength" in control) control.maxLength = options.maxLength;
     control.dataset.field = key;
     control.addEventListener("input", () => {
       item[key] = control.value;
@@ -75,7 +88,9 @@
     if (options.help) {
       const help = document.createElement("small");
       help.className = "cms-help";
+      help.id = `${control.id}-help`;
       help.textContent = options.help;
+      control.setAttribute("aria-describedby", help.id);
       wrapper.append(help);
     }
     return wrapper;
@@ -92,7 +107,11 @@
     heading.textContent = item.title || "名称未設定";
     const controls = document.createElement("div");
     controls.className = "cms-item-controls";
-    controls.append(createButton("↑", "up"), createButton("↓", "down"), createButton("削除", "delete", "danger"));
+    controls.append(
+      createButton("↑", "up", "", "この項目を上へ移動"),
+      createButton("↓", "down", "", "この項目を下へ移動"),
+      createButton("削除", "delete", "danger", "この項目を削除")
+    );
     header.append(heading, controls);
     card.append(header);
 
@@ -106,15 +125,15 @@
 
     if (type === "topics") {
       fields.append(
-        createField("日付", item, "date", { placeholder: "2026.07.21" }),
-        createField("分類", item, "label"),
-        createField("見出し", item, "title", { wide: true }),
-        createField("本文", item, "body", { type: "textarea", wide: true }),
+        createField("日付", item, "date", { placeholder: "2026.07.21", maxLength: fieldLimits.topics.date }),
+        createField("分類", item, "label", { maxLength: fieldLimits.topics.label }),
+        createField("見出し", item, "title", { wide: true, maxLength: fieldLimits.topics.title }),
+        createField("本文", item, "body", { type: "textarea", wide: true, maxLength: fieldLimits.topics.body }),
         createField("リンク先", item, "link", {
           choices: topicLinkChoices,
           help: "サイト内のページから選択",
         }),
-        createField("リンク文字", item, "linkText"),
+        createField("リンク文字", item, "linkText", { maxLength: fieldLimits.topics.linkText }),
         createField("表示色", item, "tone", {
           choices: [["normal", "通常"], ["important", "重要（淡いオレンジ）"], ["soft", "補足（グレー）"]],
           help: "通常版の配色を崩さない3種類に限定",
@@ -126,8 +145,8 @@
       );
     } else {
       fields.append(
-        createField("項目名", item, "title", { wide: true }),
-        createField("本文", item, "body", { type: "textarea", wide: true, rows: 6 })
+        createField("項目名", item, "title", { wide: true, maxLength: fieldLimits.fees.title }),
+        createField("本文", item, "body", { type: "textarea", wide: true, rows: 6, maxLength: fieldLimits.fees.body })
       );
     }
 
@@ -168,6 +187,11 @@
   }
 
   function addItem(type) {
+    if (state[type].length >= itemLimits[type]) {
+      showMessage(`${type === "topics" ? "お知らせ" : "項目"}は${itemLimits[type]}件までです。`, "error");
+      return;
+    }
+
     if (type === "topics") {
       state.topics.push({
         id: store.makeId("topic"),
@@ -192,18 +216,81 @@
     return `${base}?preview=${Date.now()}${hash ? `#${hash}` : ""}`;
   }
 
+  function openSafeWindow(url) {
+    const nextWindow = window.open("", "_blank");
+    if (!nextWindow) return false;
+    nextWindow.opener = null;
+    nextWindow.location.replace(url);
+    return true;
+  }
+
   function refreshPreview() {
     frame.src = cacheBustedUrl(previewUrls[activeSection]);
   }
 
-  function showMessage(text) {
+  function showMessage(text, type = "success") {
     document.querySelectorAll("[data-message]").forEach((element) => {
       element.textContent = element.closest(`[data-editor-panel="${activeSection}"]`) ? text : "";
+      element.classList.toggle("is-error", type === "error" && Boolean(element.textContent));
     });
   }
 
+  function updateSourceStatus() {
+    const hasDraft = typeof store.hasDraft === "function" && store.hasDraft();
+    sourceStatus.classList.remove("is-warning", "is-draft");
+
+    if (!publishedSourceLoaded) {
+      sourceStatus.textContent = hasDraft
+        ? "このブラウザの下書きを表示中（公開データは取得できませんでした）"
+        : "公開中のデータを取得できませんでした";
+      sourceStatus.classList.add("is-warning");
+      reloadPublishedButton.disabled = true;
+      return;
+    }
+
+    reloadPublishedButton.disabled = false;
+    if (hasDraft) {
+      sourceStatus.textContent = "このブラウザに保存した下書きを表示中";
+      sourceStatus.classList.add("is-draft");
+      return;
+    }
+
+    sourceStatus.textContent = "公開中の最新データを表示中";
+  }
+
   function saveDraft() {
-    store.save(state);
+    try {
+      store.save(state);
+      updateSourceStatus();
+      return true;
+    } catch (error) {
+      showMessage("ブラウザへ保存できませんでした。空き容量や閲覧設定を確認してください。", "error");
+      return false;
+    }
+  }
+
+  function validationError() {
+    for (const type of ["topics", "fees"]) {
+      if (state[type].length > itemLimits[type]) {
+        return `${type === "topics" ? "お知らせ" : "項目"}は${itemLimits[type]}件までです。`;
+      }
+
+      for (const [index, item] of state[type].entries()) {
+        for (const [key, maxLength] of Object.entries(fieldLimits[type])) {
+          if (String(item[key] || "").length > maxLength) {
+            return `${index + 1}件目の「${key === "body" ? "本文" : key === "title" ? "見出し・項目名" : key}」が${maxLength}文字を超えています。`;
+          }
+        }
+      }
+    }
+    return "";
+  }
+
+  function validateBeforeSave() {
+    const error = validationError();
+    if (!error) return true;
+    showMessage(error, "error");
+    return false;
   }
 
   function discardChanges() {
@@ -215,9 +302,29 @@
   }
 
   function previewChanges() {
-    saveDraft();
+    if (!validateBeforeSave() || !saveDraft()) return;
     showMessage("変更内容をブラウザ内に保存し、別画面でプレビューを開きました。");
-    window.open(cacheBustedUrl(previewUrls[activeSection]), "_blank", "noopener");
+    if (!openSafeWindow(cacheBustedUrl(previewUrls[activeSection]))) {
+      showMessage("プレビューを開けませんでした。ポップアップを許可して、もう一度お試しください。", "error");
+    }
+  }
+
+  function reloadPublishedContent() {
+    if (!publishedSourceLoaded) {
+      showMessage("公開中の内容を取得できていません。通信を確認してページを再読み込みしてください。", "error");
+      return;
+    }
+    if (!window.confirm("ブラウザに保存した下書きを消して、公開確認サイトの最新内容を読み直しますか？")) return;
+    try {
+      state = store.reset();
+    } catch (error) {
+      showMessage("ブラウザの下書きを消せませんでした。閲覧設定を確認してください。", "error");
+      return;
+    }
+    renderAll();
+    updateSourceStatus();
+    showMessage("公開確認サイトの最新内容を読み直しました。");
+    refreshPreview();
   }
 
   function encodePublishData(value) {
@@ -230,15 +337,21 @@
   }
 
   function publishChanges() {
+    if (!publishedSourceLoaded) {
+      showMessage("公開中の内容を取得できていないため、反映を開始できません。ページを再読み込みしてください。", "error");
+      return;
+    }
+    if (!validateBeforeSave()) return;
+
     const confirmed = window.confirm(
-      "変更内容を保存し、GitHubの本番反映確認画面を開きます。\nGitHubで内容を送信すると公開処理が始まります。"
+      "変更内容を保存し、GitHubの公開確認画面を開きます。\nGitHubで内容を送信すると、公開確認サイトの更新処理が始まります。"
     );
     if (!confirmed) return;
 
-    saveDraft();
+    if (!saveDraft()) return;
     const payload = encodePublishData({ version: 1, topics: state.topics, fees: state.fees });
     const issueBody = [
-      "おおくぼ内科クリニックの本番反映用データです。下記のデータは編集しないでください。",
+      "おおくぼ内科クリニックの公開確認サイト反映用データです。下記のデータは編集しないでください。",
       "",
       "<!-- OKUBO_CMS_DATA_BEGIN -->",
       payload,
@@ -250,15 +363,24 @@
       title: `[CMS Publish] おおくぼ内科クリニック ${new Date().toLocaleString("ja-JP")}`,
       body: issueBody,
     });
+    const issueUrl = `${publishIssueUrl}?${params.toString()}`;
+    if (issueUrl.length > 60000) {
+      showMessage("入力内容が多く、GitHub確認画面へ渡せません。長い本文を分けるか短くしてください。", "error");
+      return;
+    }
 
-    showMessage("GitHubの確認画面を開きました。内容を送信すると本番反映が始まります。");
-    window.open(`${publishIssueUrl}?${params.toString()}`, "_blank", "noopener");
+    if (!openSafeWindow(issueUrl)) {
+      showMessage("GitHub確認画面を開けませんでした。ポップアップを許可して、もう一度お試しください。", "error");
+      return;
+    }
+    showMessage("GitHubの確認画面を開きました。内容を送信すると公開処理が始まります。");
   }
 
   function switchSection(type) {
     activeSection = type;
     document.querySelectorAll("[data-cms-tab]").forEach((tab) => {
       tab.setAttribute("aria-selected", String(tab.dataset.cmsTab === type));
+      tab.tabIndex = tab.dataset.cmsTab === type ? 0 : -1;
     });
     document.querySelectorAll("[data-editor-panel]").forEach((panel) => {
       panel.hidden = panel.dataset.editorPanel !== type;
@@ -269,6 +391,13 @@
 
   document.querySelectorAll("[data-cms-tab]").forEach((tab) => {
     tab.addEventListener("click", () => switchSection(tab.dataset.cmsTab));
+    tab.addEventListener("keydown", (event) => {
+      if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      event.preventDefault();
+      const nextType = tab.dataset.cmsTab === "topics" ? "fees" : "topics";
+      switchSection(nextType);
+      document.querySelector(`[data-cms-tab="${nextType}"]`).focus();
+    });
   });
   document.querySelectorAll("[data-add-item]").forEach((button) => {
     button.addEventListener("click", () => addItem(button.dataset.addItem));
@@ -276,6 +405,9 @@
   document.querySelectorAll("[data-discard]").forEach((button) => button.addEventListener("click", discardChanges));
   document.querySelectorAll("[data-preview-new]").forEach((button) => button.addEventListener("click", previewChanges));
   document.querySelectorAll("[data-publish]").forEach((button) => button.addEventListener("click", publishChanges));
+  reloadPublishedButton.addEventListener("click", reloadPublishedContent);
 
+  updateSourceStatus();
   renderAll();
+  switchSection(activeSection);
 })();

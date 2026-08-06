@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>サイト更新 | おおくぼ内科クリニック</title>
-    <link rel="stylesheet" href="./preview/review.css" />
+    <link rel="icon" href="./assets/original-logo.png" />
+    <link rel="stylesheet" href="./preview/review.css?v=20260806-1" />
   </head>
   <body class="review-admin">
     <header class="cms-header">
@@ -13,12 +14,22 @@
         <img src="./assets/original-logo.png" alt="おおくぼ内科クリニック" />
         <div><h1>サイト更新</h1><p>編集できる場所を2ヶ所に限定</p></div>
       </div>
+      <nav class="cms-header-actions" aria-label="ヘルプと確認サイト">
+        <a class="cms-site-link is-help" href="./manual.html">初めての方へ・使い方</a>
+        <a class="cms-site-link" href="https://makoban.github.io/okubo-naika-renewal/" target="_blank" rel="noopener">公開確認サイト</a>
+      </nav>
     </header>
 
     <main class="cms-shell">
       <section class="cms-note" aria-label="保存について">
-        <strong>変更内容を別画面で確認してから、本番サイトへ反映できます。</strong>
-        <p>本番変更ではGitHubの確認画面が開きます。所有者アカウントで内容を送信すると公開処理が始まります。</p>
+        <div class="cms-note-copy">
+          <strong>変更内容を別画面で確認してから、公開確認サイトへ反映できます。</strong>
+          <p>現在の反映先はGitHub Pagesの公開確認サイトです。現行の公式サイトは直接変更しません。</p>
+        </div>
+        <div class="cms-note-tools">
+          <span class="cms-source-status" data-source-status aria-live="polite">公開中の内容を確認しています</span>
+          <button class="cms-reload-button" type="button" data-reload-published>公開中の内容を読み直す</button>
+        </div>
       </section>
 
       <div class="cms-tabs" role="tablist" aria-label="編集する場所">
@@ -34,9 +45,9 @@
           </header>
           <div class="cms-items" data-items="topics"></div>
           <div class="cms-actions">
-            <button class="cms-action-button reset" type="button" data-discard>すべての変更を取り消す</button>
+            <button class="cms-action-button reset" type="button" data-discard>入力中の変更を元に戻す</button>
             <button class="cms-action-button secondary" type="button" data-preview-new>変更でプレビューを見る</button>
-            <button class="cms-action-button publish" type="button" data-publish>変更を保存して本番変更</button>
+            <button class="cms-action-button publish" type="button" data-publish>公開確認サイトへ反映する</button>
           </div>
           <p class="cms-message" aria-live="polite" data-message></p>
         </section>
@@ -48,9 +59,9 @@
           </header>
           <div class="cms-items" data-items="fees"></div>
           <div class="cms-actions">
-            <button class="cms-action-button reset" type="button" data-discard>すべての変更を取り消す</button>
+            <button class="cms-action-button reset" type="button" data-discard>入力中の変更を元に戻す</button>
             <button class="cms-action-button secondary" type="button" data-preview-new>変更でプレビューを見る</button>
-            <button class="cms-action-button publish" type="button" data-publish>変更を保存して本番変更</button>
+            <button class="cms-action-button publish" type="button" data-publish>公開確認サイトへ反映する</button>
           </div>
           <p class="cms-message" aria-live="polite" data-message></p>
         </section>
@@ -62,9 +73,10 @@
       </div>
     </main>
 
-    <script src="./preview/review-data.js"></script>
+    <script src="./preview/review-data.js?v=20260806-1"></script>
+    <script>window.OKUBO_BUNDLED_DEFAULTS = window.OKUBO_REVIEW_DEFAULTS;</script>
     <script src="https://makoban.github.io/okubo-naika-renewal/review-data.js"></script>
-    <script src="./preview/review-store.js"></script>
-    <script src="./admin-preview.js"></script>
+    <script src="./preview/review-store.js?v=20260806-1"></script>
+    <script src="./admin-preview.js?v=20260806-1"></script>
   </body>
 </html>

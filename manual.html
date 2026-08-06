@@ -4,127 +4,255 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>サイト更新 操作説明書 | おおくぼ内科クリニック</title>
-    <meta name="description" content="おおくぼ内科クリニックのサイト更新ダッシュボード操作説明書です。" />
+    <title>はじめてのサイト更新ガイド | おおくぼ内科クリニック</title>
+    <meta name="description" content="おおくぼ内科クリニックのサイト更新ダッシュボードを、実際の画面を見ながら操作できる初心者向けガイドです。" />
+    <link rel="icon" href="./assets/original-logo.png" />
     <link rel="stylesheet" href="./manual.css" />
+    <script src="./manual.js" defer></script>
   </head>
   <body>
     <header class="manual-header">
       <div class="manual-header-inner">
-        <img src="./assets/original-logo.png" alt="おおくぼ内科クリニック" />
-        <div>
-          <p>管理者向け</p>
-          <h1>サイト更新 操作説明書</h1>
+        <a class="manual-brand" href="./index.html" aria-label="編集ダッシュボードへ戻る">
+          <img src="./assets/original-logo.png" alt="おおくぼ内科クリニック" />
+        </a>
+        <div class="manual-title">
+          <p>初めての方へ</p>
+          <h1>サイト更新 かんたん操作ガイド</h1>
         </div>
+        <a class="manual-header-link" href="./index.html">編集画面を開く</a>
       </div>
     </header>
 
     <main class="manual-main">
       <section class="manual-intro" aria-labelledby="intro-title">
-        <p class="manual-kicker">はじめに</p>
-        <h2 id="intro-title">変更内容を確認してから、本番サイトへ反映します。</h2>
-        <p>編集できる場所は「TOPのトピックス」と「診療報酬のお知らせ」の2ヶ所です。</p>
-        <a class="manual-primary-link" href="./index.html">編集ダッシュボードを開く</a>
-      </section>
-
-      <section class="manual-section" aria-labelledby="editable-title">
-        <div class="manual-heading">
-          <span>01</span>
-          <div>
-            <p>編集できる場所</p>
-            <h2 id="editable-title">2つのタブから選びます。</h2>
+        <div class="manual-intro-copy">
+          <p class="manual-kicker">最初に読むところ</p>
+          <h2 id="intro-title"><span class="phrase">入力する</span><span class="phrase"> → プレビューで見る</span><span class="phrase"> → 公開する</span></h2>
+          <p>この3段階で更新できます。入力しただけでは公開されないので、初めてでも確認しながら進められます。</p>
+          <div class="manual-intro-actions">
+            <a class="manual-primary-link" href="./index.html">編集ダッシュボードを開く</a>
+            <a class="manual-secondary-link" href="#steps">手順を先に読む</a>
           </div>
         </div>
-        <div class="manual-grid">
-          <article class="manual-card">
-            <h3>TOPのトピックス</h3>
-            <ul>
-              <li>表示・非表示</li>
-              <li>日付・分類・見出し・本文</li>
-              <li>リンク先・リンク文字</li>
-              <li>表示色・見出し書体</li>
-              <li>追加・削除・並び替え</li>
-            </ul>
-          </article>
-          <article class="manual-card">
-            <h3>診療報酬のお知らせ</h3>
-            <ul>
-              <li>表示・非表示</li>
-              <li>項目名・本文</li>
-              <li>追加・削除・並び替え</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="manual-section" aria-labelledby="edit-title">
-        <div class="manual-heading">
-          <span>02</span>
-          <div>
-            <p>編集方法</p>
-            <h2 id="edit-title">入力欄を変更します。</h2>
-          </div>
-        </div>
-        <ol class="manual-steps">
-          <li><strong>編集するタブを選択</strong><span>TOPのトピックス、または診療報酬のお知らせを選びます。</span></li>
-          <li><strong>文章や表示設定を変更</strong><span>リンク先はサイト内のページから選択できます。</span></li>
-          <li><strong>必要に応じて並び替え</strong><span>「↑」「↓」で順番を変更し、不要な項目は削除できます。</span></li>
+        <ol class="manual-quick-flow" aria-label="更新の3段階">
+          <li><span>1</span><strong>入力</strong><small>文章や表示を変更</small></li>
+          <li><span>2</span><strong>確認</strong><small>別画面で見た目を確認</small></li>
+          <li><span>3</span><strong>公開</strong><small>GitHubで送信を確定</small></li>
         </ol>
       </section>
 
-      <section class="manual-section" aria-labelledby="buttons-title">
+      <aside class="manual-scope" aria-label="現在の反映先">
+        <strong>現在の反映先は「公開確認サイト」です。</strong>
+        <p>このダッシュボードは <span class="keep">GitHub Pagesの公開確認サイト</span> を更新します。現在の公式サイト <span class="technical">www.okubo-naika-cl.com</span> は直接変更しません。</p>
+      </aside>
+
+      <nav class="manual-toc" aria-label="このページの目次">
+        <a href="#screen">画面の見方</a>
+        <a href="#steps">更新手順</a>
+        <a href="#buttons">3つのボタン</a>
+        <a href="#publish">公開方法</a>
+        <a href="#trouble">困ったとき</a>
+      </nav>
+
+      <section id="screen" class="manual-section" aria-labelledby="screen-title">
+        <div class="manual-heading">
+          <span>01</span>
+          <div>
+            <p>画面の見方</p>
+            <h2 id="screen-title">左で編集し、右で見た目を確認します。</h2>
+          </div>
+        </div>
+
+        <figure class="manual-shot manual-shot-main">
+          <button type="button" data-manual-zoom data-full-src="./assets/manual-dashboard-overview.jpg" data-caption="編集ダッシュボードの全体画面。左が入力欄、右がサイトプレビューです。" aria-label="編集ダッシュボードの全体画面を拡大表示">
+            <picture>
+              <source srcset="./assets/manual-dashboard-overview-720.jpg 720w, ./assets/manual-dashboard-overview.jpg 1280w" sizes="(max-width: 680px) calc(100vw - 48px), 1040px" type="image/jpeg" />
+              <img src="./assets/manual-dashboard-overview.jpg" width="1280" height="545" alt="左側に編集欄、右側にサイトプレビューが並ぶダッシュボード画面" fetchpriority="high" decoding="async" />
+            </picture>
+            <span>画像をタップすると拡大できます</span>
+          </button>
+          <figcaption>画面上部のタブで「TOPのトピックス」と「診療報酬のお知らせ」を切り替えます。</figcaption>
+        </figure>
+
+        <div class="manual-screen-points">
+          <article><span>1</span><h3>編集する場所</h3><p>左側の入力欄で文章、表示・非表示、順番などを変更します。</p></article>
+          <article><span>2</span><h3>その場の確認</h3><p>右側は現在の保存内容を表示する確認窓です。最終確認は別画面プレビューで行います。</p></article>
+          <article><span>3</span><h3>最初に状態を確認</h3><p>上部に「下書きを表示中」と出たら、続きから編集するか「公開中の内容を読み直す」で最新化します。</p></article>
+        </div>
+      </section>
+
+      <section id="steps" class="manual-section" aria-labelledby="steps-title">
+        <div class="manual-heading">
+          <span>02</span>
+          <div>
+            <p>基本の更新手順</p>
+            <h2 id="steps-title">上から順に進めれば大丈夫です。</h2>
+          </div>
+        </div>
+        <ol class="manual-steps">
+          <li><strong>編集するタブを選ぶ</strong><span>お知らせなら「TOPのトピックス」、制度案内なら「診療報酬のお知らせ」を選びます。</span></li>
+          <li><strong>文章や表示設定を変更する</strong><span>「表示する／非表示」、見出し、本文などを入力します。リンク先は一覧から選べます。</span></li>
+          <li><strong>必要なら追加・並び替えをする</strong><span>「＋ お知らせを追加」で増やし、「↑」「↓」で表示順を変えます。</span></li>
+          <li><strong>「変更でプレビューを見る」を押す</strong><span>別画面が開きます。文章の間違い、改行、リンク先、表示順を確認します。</span></li>
+          <li><strong>問題がなければ公開へ進む</strong><span>編集画面へ戻り、「公開確認サイトへ反映する」を押します。</span></li>
+        </ol>
+        <aside class="manual-tip">
+          <strong>迷ったら、まずプレビューまで。</strong>
+          <p>プレビューを開いただけでは公開確認サイトは変わりません。何度でも直して確認できます。</p>
+        </aside>
+      </section>
+
+      <section id="buttons" class="manual-section" aria-labelledby="buttons-title">
         <div class="manual-heading">
           <span>03</span>
           <div>
             <p>画面下部の操作</p>
-            <h2 id="buttons-title">3つのボタンを使い分けます。</h2>
+            <h2 id="buttons-title">3つのボタンの違いです。</h2>
           </div>
         </div>
-        <div class="manual-actions-list">
-          <article class="manual-action cancel">
-            <h3>すべての変更を取り消す</h3>
-            <p>保存していない編集を破棄して、直前の保存状態へ戻します。本番サイトは変更されません。</p>
-          </article>
-          <article class="manual-action preview">
-            <h3>変更でプレビューを見る</h3>
-            <p>現在の変更内容をブラウザ内へ一時保存し、別ウインドウで確認します。本番サイトはまだ変更されません。</p>
-          </article>
-          <article class="manual-action publish">
-            <h3>変更を保存して本番変更</h3>
-            <p>GitHubの確認画面を開きます。内容を送信すると、本番サイトの更新処理が始まります。</p>
-          </article>
-        </div>
-      </section>
 
-      <section class="manual-section" aria-labelledby="publish-title">
-        <div class="manual-heading">
-          <span>04</span>
-          <div>
-            <p>本番反映</p>
-            <h2 id="publish-title">GitHubで送信を確定します。</h2>
+        <div class="manual-media-grid">
+          <figure class="manual-shot">
+            <button type="button" data-manual-zoom data-full-src="./assets/manual-dashboard-actions.jpg" data-caption="入力欄の一番下に、元に戻す・プレビュー・公開の3つのボタンがあります。" aria-label="画面下部の3つの操作ボタンを拡大表示">
+              <picture>
+                <source srcset="./assets/manual-dashboard-actions-720.jpg 720w, ./assets/manual-dashboard-actions.jpg 1280w" sizes="(max-width: 760px) calc(100vw - 48px), 500px" type="image/jpeg" />
+                <img src="./assets/manual-dashboard-actions.jpg" width="1280" height="545" alt="入力欄の下に並ぶ、元に戻す、プレビュー、公開の3つのボタン" loading="lazy" decoding="async" />
+              </picture>
+              <span>タップして拡大</span>
+            </button>
+            <figcaption>入力欄の一番下までスクロールすると表示されます。</figcaption>
+          </figure>
+
+          <div class="manual-actions-list">
+            <article class="manual-action cancel">
+              <h3>入力中の変更を元に戻す</h3>
+              <p>まだブラウザ保存していない入力だけを、直前の保存状態へ戻します。公開内容は変わりません。</p>
+            </article>
+            <article class="manual-action preview">
+              <h3>変更でプレビューを見る</h3>
+              <p>今の内容をこのブラウザへ下書き保存し、別画面で確認します。まだ公開されません。</p>
+            </article>
+            <article class="manual-action publish">
+              <h3>公開確認サイトへ反映する</h3>
+              <p>GitHubの送信確認画面を開きます。次の画面で送信するまで、公開処理は始まりません。</p>
+            </article>
           </div>
         </div>
-        <ol class="manual-steps">
-          <li><strong>本番変更ボタンを押す</strong><span>確認メッセージの内容を確認して進みます。</span></li>
-          <li><strong>GitHubへログイン</strong><span>所有者アカウント「makoban」でログインします。</span></li>
-          <li><strong>「Submit new issue」を押す</strong><span>自動入力されたデータは編集せず、そのまま送信します。</span></li>
-          <li><strong>公開完了を待つ</strong><span>通常は1〜2分程度で本番サイトへ反映されます。</span></li>
-          <li><strong>本番サイトを再読み込み</strong><span>変更内容が表示されていることを確認します。</span></li>
-        </ol>
+
         <aside class="manual-warning">
-          <strong>本番変更できるのは所有者アカウントだけです。</strong>
-          <p>GitHub確認画面に表示される本番反映用データは、削除・追記・書き換えをしないでください。</p>
+          <strong>「公開中の内容を読み直す」は下書きを消します。</strong>
+          <p>前回の下書きを使わず、現在公開されている内容から編集をやり直したいときだけ押してください。</p>
         </aside>
       </section>
 
+      <section id="publish" class="manual-section" aria-labelledby="publish-title">
+        <div class="manual-heading">
+          <span>04</span>
+          <div>
+            <p>公開方法</p>
+            <h2 id="publish-title">GitHubで送信を確定します。</h2>
+          </div>
+        </div>
+        <ol class="manual-steps manual-publish-steps">
+          <li><strong>確認メッセージで「OK」を押す</strong><span>GitHubの新しい画面が開きます。</span></li>
+          <li><strong>所有者アカウントで確認する</strong><span>必要な場合はGitHubの <span class="technical">makoban</span> アカウントでログインします。</span></li>
+          <li><strong>「Submit new issue」を1回押す</strong><span>自動入力された英数字のデータは、削除・追記・書き換えをしません。</span></li>
+          <li><strong>自動処理の完了を待つ</strong><span>Issueが自動で閉じられ、完了コメントが付けば公開処理の受付は成功です。</span></li>
+          <li><strong>公開確認サイトを再読み込みする</strong><span>通常は1〜2分ほど待ち、別のブラウザまたはプライベートウインドウでも確認します。</span></li>
+        </ol>
+        <aside class="manual-warning">
+          <strong>公開操作ができるのは所有者アカウントだけです。</strong>
+          <p>「Submit new issue」を押すまでは公開されません。二重送信を避けるため、送信ボタンは1回だけ押します。</p>
+        </aside>
+      </section>
+
+      <section class="manual-section" aria-labelledby="fees-title">
+        <div class="manual-heading">
+          <span>05</span>
+          <div>
+            <p>もう1つの編集場所</p>
+            <h2 id="fees-title">診療報酬のお知らせも同じ流れです。</h2>
+          </div>
+        </div>
+        <div class="manual-media-grid is-reverse">
+          <div class="manual-card">
+            <h3>変更できる項目</h3>
+            <ul>
+              <li>表示する／非表示</li>
+              <li>項目名</li>
+              <li>本文</li>
+              <li>追加・削除・並び替え</li>
+            </ul>
+            <p>右側の確認窓は医院案内ページを表示します。ページ下部の「各種加算・明細書発行に関するお知らせ」までスクロールして確認します。</p>
+          </div>
+          <figure class="manual-shot">
+            <button type="button" data-manual-zoom data-full-src="./assets/manual-dashboard-fees.jpg" data-caption="診療報酬のお知らせ編集画面。項目名と本文を変更できます。" aria-label="診療報酬のお知らせ編集画面を拡大表示">
+              <picture>
+                <source srcset="./assets/manual-dashboard-fees-720.jpg 720w, ./assets/manual-dashboard-fees.jpg 1280w" sizes="(max-width: 760px) calc(100vw - 48px), 500px" type="image/jpeg" />
+                <img src="./assets/manual-dashboard-fees.jpg" width="1280" height="545" alt="診療報酬のお知らせの項目名と本文を編集する画面" loading="lazy" decoding="async" />
+              </picture>
+              <span>タップして拡大</span>
+            </button>
+            <figcaption>「診療報酬のお知らせ」タブを選んだ画面です。</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="trouble" class="manual-section" aria-labelledby="trouble-title">
+        <div class="manual-heading">
+          <span>06</span>
+          <div>
+            <p>困ったとき</p>
+            <h2 id="trouble-title">よくある状態と対処方法です。</h2>
+          </div>
+        </div>
+        <div class="manual-trouble-list">
+          <details>
+            <summary>前回の下書きが残っている</summary>
+            <p>画面上部に「このブラウザに保存した下書きを表示中」と表示されます。続きから編集しない場合は「公開中の内容を読み直す」を押すと、下書きが消えて公開中の最新内容へ戻ります。</p>
+          </details>
+          <details>
+            <summary>プレビューの別画面が開かない</summary>
+            <p>ブラウザのポップアップ許可を確認し、「変更でプレビューを見る」をもう一度押します。</p>
+          </details>
+          <details>
+            <summary>GitHubのログイン画面が出た</summary>
+            <p>所有者アカウント <span class="technical">makoban</span> でログインします。別のアカウントでは公開処理を開始できません。</p>
+          </details>
+          <details>
+            <summary>送信後も表示が変わらない</summary>
+            <p>Issueに完了コメントが付いているか確認し、1〜2分待ってから公開確認サイトを再読み込みします。別ブラウザでも確認すると確実です。</p>
+          </details>
+          <details>
+            <summary>間違えて公開した</summary>
+            <p>ダッシュボードで正しい内容に直し、プレビュー確認後にもう一度反映します。</p>
+          </details>
+        </div>
+      </section>
+
       <section class="manual-links" aria-label="関連ページ">
-        <a class="manual-primary-link" href="./index.html">編集ダッシュボード</a>
-        <a class="manual-secondary-link" href="https://makoban.github.io/okubo-naika-renewal/">本番サイトを確認</a>
+        <div>
+          <p>準備ができたら</p>
+          <h2>編集画面を開いて始めましょう。</h2>
+        </div>
+        <div>
+          <a class="manual-primary-link" href="./index.html">編集ダッシュボード</a>
+          <a class="manual-secondary-link" href="https://makoban.github.io/okubo-naika-renewal/" target="_blank" rel="noopener">公開確認サイト</a>
+        </div>
       </section>
     </main>
 
     <footer class="manual-footer">
-      <p>おおくぼ内科クリニック サイト更新 操作説明書</p>
+      <p>おおくぼ内科クリニック サイト更新 かんたん操作ガイド</p>
     </footer>
+
+    <dialog class="manual-dialog" data-manual-dialog aria-label="操作画面の拡大表示">
+      <button class="manual-dialog-close" type="button" data-manual-close aria-label="拡大表示を閉じる">×</button>
+      <figure>
+        <img src="" alt="" data-manual-dialog-image />
+        <figcaption data-manual-dialog-caption></figcaption>
+      </figure>
+    </dialog>
   </body>
 </html>
