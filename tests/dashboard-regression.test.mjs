@@ -143,3 +143,12 @@ test("admin preview keeps the synchronous safe-window sequence and CMS limits", 
   assert.match(source, /fees:\s*\{\s*title:\s*200,\s*body:\s*12000\s*\}/);
   assert.match(source, /issueUrl\.length\s*>\s*60000/);
 });
+
+test("publishing binds the draft to the production revision and keeps credentials out of the page", () => {
+  const source = fs.readFileSync(path.join(repositoryRoot, "admin-preview.js"), "utf8");
+  const html = fs.readFileSync(path.join(repositoryRoot, "index.html"), "utf8");
+  assert.match(source, /version:\s*2,\s*baseRevision:\s*window\.OKUBO_PUBLISHED_META\.revision/);
+  assert.match(html, /https:\/\/www\.okubo-naika-cl\.com\/published-content\.php/);
+  assert.doesNotMatch(html, /現行の公式サイトは直接変更しません|公開確認サイトへ反映する/);
+  assert.doesNotMatch(source, /ghp_[A-Za-z0-9]+|github_pat_[A-Za-z0-9_]+|Bearer\s/);
+});

@@ -43,8 +43,8 @@
       </section>
 
       <aside class="manual-scope" aria-label="現在の反映先">
-        <strong>現在の反映先は「公開確認サイト」です。</strong>
-        <p>このダッシュボードは <span class="keep">GitHub Pagesの公開確認サイト</span> を更新します。現在の公式サイト <span class="technical">www.okubo-naika-cl.com</span> は直接変更しません。</p>
+        <strong>現在の反映先は「本番HP」です。</strong>
+        <p>このダッシュボードは <span class="keep">さくらの本番HP</span> を更新します。下書きやプレビューを確認し、GitHubで送信を確定してから公開されます。</p>
       </aside>
 
       <nav class="manual-toc" aria-label="このページの目次">
@@ -95,11 +95,11 @@
           <li><strong>文章や表示設定を変更する</strong><span>「表示する／非表示」、見出し、本文などを入力します。リンク先は一覧から選べます。</span></li>
           <li><strong>必要なら追加・並び替えをする</strong><span>「＋ お知らせを追加」で増やし、「↑」「↓」で表示順を変えます。</span></li>
           <li><strong>「変更でプレビューを見る」を押す</strong><span>別画面が開きます。文章の間違い、改行、リンク先、表示順を確認します。</span></li>
-          <li><strong>問題がなければ公開へ進む</strong><span>編集画面へ戻り、「公開確認サイトへ反映する」を押します。</span></li>
+          <li><strong>問題がなければ公開へ進む</strong><span>編集画面へ戻り、「本番HPに公開する」を押します。</span></li>
         </ol>
         <aside class="manual-tip">
           <strong>迷ったら、まずプレビューまで。</strong>
-          <p>プレビューを開いただけでは公開確認サイトは変わりません。何度でも直して確認できます。</p>
+          <p>プレビューを開いただけでは本番HPは変わりません。何度でも直して確認できます。</p>
         </aside>
       </section>
 
@@ -134,7 +134,7 @@
               <p>今の内容をこのブラウザへ下書き保存し、別画面で確認します。まだ公開されません。</p>
             </article>
             <article class="manual-action publish">
-              <h3>公開確認サイトへ反映する</h3>
+              <h3>本番HPに公開する</h3>
               <p>GitHubの送信確認画面を開きます。次の画面で送信するまで、公開処理は始まりません。</p>
             </article>
           </div>
@@ -158,8 +158,8 @@
           <li><strong>確認メッセージで「OK」を押す</strong><span>GitHubの新しい画面が開きます。</span></li>
           <li><strong>所有者アカウントで確認する</strong><span>必要な場合はGitHubの <span class="technical">makoban</span> アカウントでログインします。</span></li>
           <li><strong>「Submit new issue」を1回押す</strong><span>自動入力された英数字のデータは、削除・追記・書き換えをしません。</span></li>
-          <li><strong>自動処理の完了を待つ</strong><span>Issueが自動で閉じられ、完了コメントが付けば公開処理の受付は成功です。</span></li>
-          <li><strong>公開確認サイトを再読み込みする</strong><span>通常は1〜2分ほど待ち、別のブラウザまたはプライベートウインドウでも確認します。</span></li>
+          <li><strong>自動処理の完了を待つ</strong><span>本番の反映確認後にIssueが閉じられ、完了コメントが付きます。失敗・未確認の場合は開いたまま残ります。</span></li>
+          <li><strong>本番HPを再読み込みする</strong><span>完了コメントを確認し、本番HPで文章・表示順・リンクを確認します。反映まで数分かかる場合があります。</span></li>
         </ol>
         <aside class="manual-warning">
           <strong>公開操作ができるのは所有者アカウントだけです。</strong>
@@ -222,7 +222,7 @@
           </details>
           <details>
             <summary>送信後も表示が変わらない</summary>
-            <p>Issueに完了コメントが付いているか確認し、1〜2分待ってから公開確認サイトを再読み込みします。別ブラウザでも確認すると確実です。</p>
+            <p>Issueの完了コメントを確認し、本番HPを再読み込みします。失敗コメントがある場合や、編集中に別の公開があった場合は、編集画面で最新の公開内容を読み直して確認します。</p>
           </details>
           <details>
             <summary>間違えて公開した</summary>
@@ -238,7 +238,7 @@
         </div>
         <div>
           <a class="manual-primary-link" href="./index.html">編集ダッシュボード</a>
-          <a class="manual-secondary-link" href="https://makoban.github.io/okubo-naika-renewal/" target="_blank" rel="noopener">公開確認サイト</a>
+          <a class="manual-secondary-link" href="https://www.okubo-naika-cl.com/" target="_blank" rel="noopener">本番HPを見る</a>
         </div>
       </section>
     </main>

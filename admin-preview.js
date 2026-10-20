@@ -8,7 +8,7 @@
   const sourceStatus = document.querySelector("[data-source-status]");
   const reloadPublishedButton = document.querySelector("[data-reload-published]");
   const publishedSourceLoaded =
-    window.OKUBO_REVIEW_SOURCE === "published" || window.OKUBO_REVIEW_DEFAULTS !== window.OKUBO_BUNDLED_DEFAULTS;
+    window.OKUBO_REVIEW_SOURCE === "published" && /^[a-f0-9]{64}$/.test(window.OKUBO_PUBLISHED_META?.revision || "");
   const previewUrls = {
     topics: "./preview/index.html#topics-title",
     fees: "./preview/guide.html#fees",
@@ -255,7 +255,7 @@
       return;
     }
 
-    sourceStatus.textContent = "公開中の最新データを表示中";
+    sourceStatus.textContent = "本番HPの公開内容を表示中";
   }
 
   function saveDraft() {
@@ -314,17 +314,16 @@
       showMessage("公開中の内容を取得できていません。通信を確認してページを再読み込みしてください。", "error");
       return;
     }
-    if (!window.confirm("ブラウザに保存した下書きを消して、公開確認サイトの最新内容を読み直しますか？")) return;
+    if (!window.confirm("ブラウザに保存した下書きを消して、本番HPの公開内容を読み直しますか？")) return;
     try {
       state = store.reset();
     } catch (error) {
       showMessage("ブラウザの下書きを消せませんでした。閲覧設定を確認してください。", "error");
       return;
     }
-    renderAll();
-    updateSourceStatus();
-    showMessage("公開確認サイトの最新内容を読み直しました。");
-    refreshPreview();
+    // Fetch the current production script again, rather than reusing defaults
+    // captured when this editor was first opened.
+    window.location.reload();
   }
 
   function encodePublishData(value) {
@@ -344,14 +343,14 @@
     if (!validateBeforeSave()) return;
 
     const confirmed = window.confirm(
-      "変更内容を保存し、GitHubの公開確認画面を開きます。\nGitHubで内容を送信すると、公開確認サイトの更新処理が始まります。"
+      "変更内容を保存し、GitHubの公開確認画面を開きます。\nGitHubで送信を確定すると、本番HPへ自動反映されます。"
     );
     if (!confirmed) return;
 
     if (!saveDraft()) return;
-    const payload = encodePublishData({ version: 1, topics: state.topics, fees: state.fees });
+    const payload = encodePublishData({ version: 2, baseRevision: window.OKUBO_PUBLISHED_META.revision, topics: state.topics, fees: state.fees });
     const issueBody = [
-      "おおくぼ内科クリニックの公開確認サイト反映用データです。下記のデータは編集しないでください。",
+      "おおくぼ内科クリニックの本番HP反映用データです。下記のデータは編集しないでください。",
       "",
       "<!-- OKUBO_CMS_DATA_BEGIN -->",
       payload,
@@ -373,7 +372,7 @@
       showMessage("GitHub確認画面を開けませんでした。ポップアップを許可して、もう一度お試しください。", "error");
       return;
     }
-    showMessage("GitHubの確認画面を開きました。内容を送信すると公開処理が始まります。");
+    showMessage("GitHubで送信を確定してください。本番への反映確認後、完了コメントが付きます。");
   }
 
   function switchSection(type) {
