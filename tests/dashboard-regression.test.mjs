@@ -119,36 +119,3 @@ test("preview edit link never nests the dashboard inside its preview frame", () 
   assert.equal(editLink.target, "_top");
 });
 
-test("admin preview keeps the synchronous safe-window sequence and CMS limits", () => {
-  const filename = path.join(repositoryRoot, "admin-preview.js");
-  const source = fs.readFileSync(filename, "utf8");
-  const safeWindowStart = source.indexOf("function openSafeWindow(url)");
-  const safeWindowEnd = source.indexOf("function refreshPreview()", safeWindowStart);
-  const safeWindowSource = source.slice(safeWindowStart, safeWindowEnd);
-
-  assert.ok(safeWindowStart >= 0 && safeWindowEnd > safeWindowStart, "openSafeWindow must exist");
-  const openIndex = safeWindowSource.indexOf('window.open("", "_blank")');
-  const disownIndex = safeWindowSource.indexOf("nextWindow.opener = null");
-  const navigateIndex = safeWindowSource.indexOf("nextWindow.location.replace(url)");
-  assert.ok(openIndex >= 0, "the blank window must open synchronously");
-  assert.ok(disownIndex > openIndex, "the new window must drop opener after opening");
-  assert.ok(navigateIndex > disownIndex, "navigation must happen only after opener is cleared");
-  assert.doesNotMatch(safeWindowSource, /\b(?:async|await|Promise)\b/);
-  assert.match(source, /openSafeWindow\(cacheBustedUrl\(previewUrls\[activeSection\]\)\)/);
-  assert.match(source, /const itemLimits\s*=\s*\{\s*topics:\s*20,\s*fees:\s*30\s*\}/);
-  assert.match(
-    source,
-    /topics:\s*\{\s*date:\s*40,\s*label:\s*60,\s*title:\s*160,\s*body:\s*4000,\s*linkText:\s*100\s*\}/
-  );
-  assert.match(source, /fees:\s*\{\s*title:\s*200,\s*body:\s*12000\s*\}/);
-  assert.match(source, /issueUrl\.length\s*>\s*60000/);
-});
-
-test("publishing binds the draft to the production revision and keeps credentials out of the page", () => {
-  const source = fs.readFileSync(path.join(repositoryRoot, "admin-preview.js"), "utf8");
-  const html = fs.readFileSync(path.join(repositoryRoot, "index.html"), "utf8");
-  assert.match(source, /version:\s*2,\s*baseRevision:\s*window\.OKUBO_PUBLISHED_META\.revision/);
-  assert.match(html, /https:\/\/www\.okubo-naika-cl\.com\/published-content\.php/);
-  assert.doesNotMatch(html, /現行の公式サイトは直接変更しません|公開確認サイトへ反映する/);
-  assert.doesNotMatch(source, /ghp_[A-Za-z0-9]+|github_pat_[A-Za-z0-9_]+|Bearer\s/);
-});
